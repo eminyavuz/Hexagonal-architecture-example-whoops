@@ -1,4 +1,9 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
-public class CreateWhoopsRequest {
+
+import java.util.UUID;
+
+public record CreateWhoopsRequest(UUID userId,String message) {
+
+
 }
