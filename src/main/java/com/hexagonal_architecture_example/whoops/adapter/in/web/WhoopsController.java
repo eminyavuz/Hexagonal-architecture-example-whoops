@@ -6,17 +6,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 @RestController
-@RequestMapping("/api")
-public class WhoopsController  {
+@RequestMapping("/api/whoops")
+public class WhoopsController {
     private final CreateWhoopUseCase createUseCase;
 
  public  WhoopsController(CreateWhoopUseCase createWhoopUseCase){
         this.createUseCase= createWhoopUseCase;
     }
 
-   @PostMapping("/create")
+   @PostMapping
 
     public Whoops createWhoops(@RequestBody CreateWhoopsRequest req)
    {

@@ -1,11 +1,13 @@
 package com.hexagonal_architecture_example.whoops;
 
-import com.hexagonal_architecture_example.whoops.adapter.out.messaging.InMemoryWhoopsEventPublisher;
-import com.hexagonal_architecture_example.whoops.adapter.out.persistence.InMemoryWhoopsRepository;
+import com.hexagonal_architecture_example.whoops.adapter.out.messaging.RabbitMqEventPublisher;
+import com.hexagonal_architecture_example.whoops.adapter.out.persistence.JpaWhoopsRepositoryAdapter;
+import com.hexagonal_architecture_example.whoops.adapter.out.persistence.SpringDataWhoopsRepository;
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsEventPublisher;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
 import com.hexagonal_architecture_example.whoops.application.service.CreateWhoopsService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 
 
@@ -13,13 +15,13 @@ import org.springframework.context.annotation.Bean;
 public class Configuration {
 
     @Bean
-    public InMemoryWhoopsEventPublisher whoopsEventPublisher() {
-        return new InMemoryWhoopsEventPublisher();
+    public WhoopsEventPublisher whoopsEventPublisher(RabbitTemplate rabbitTemplate) {
+        return new RabbitMqEventPublisher(rabbitTemplate);
     }
 
     @Bean
-    public InMemoryWhoopsRepository whoopsRepository() {
-        return new InMemoryWhoopsRepository();
+    public WhoopsRepository whoopsRepository(SpringDataWhoopsRepository repository) {
+        return new JpaWhoopsRepositoryAdapter(repository);
     }
 
     @Bean
