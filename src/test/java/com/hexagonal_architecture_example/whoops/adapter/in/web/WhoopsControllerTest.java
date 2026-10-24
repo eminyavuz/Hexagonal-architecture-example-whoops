@@ -1,6 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
+import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
 import com.hexagonal_architecture_example.whoops.domain.Whoops;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,28 +35,36 @@ public class WhoopsControllerTest {
     UUID userId= UUID.randomUUID();
     UUID whoopsId= UUID.randomUUID();
     String message="There is a whoop to reach you";
+    String senderName="Pam Beesly";
+    SocialMediaPlatform sourcePlatform=SocialMediaPlatform.INSTAGRAM;
     Instant createdAt=Instant.now();
 
-    Whoops whoops= Whoops.reconstitute(whoopsId,userId,message,createdAt);
+    Whoops whoops= Whoops.reconstitute(whoopsId,userId,senderName,sourcePlatform,message,createdAt);
 
-    when(createWhoopUseCase.create(userId,message)).thenReturn(whoops);
+    when(createWhoopUseCase.create(userId,senderName,sourcePlatform,message)).thenReturn(whoops);
 
     String json= """
                {
                         "userId": "%s",
-                        "message": "%s"
+                        "message": "%s",
+                        "senderName":"%s",
+                        "sourcePlatform":"%s"
                     }
                
-            """.formatted(userId,message);
-    mockMvc.perform(post("/api/create")
+            """.formatted(userId,message,senderName,sourcePlatform);
+    mockMvc.perform(post("/api/whoops")
             .contentType(MediaType.APPLICATION_JSON)
             .content(json)
     )
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.message").value(message))
             .andExpect(jsonPath("$.userId").value(userId.toString()))
-            .andExpect(jsonPath("$.id").value(whoopsId.toString()));
-    verify(createWhoopUseCase).create(userId,message);
+            .andExpect(jsonPath("$.id").value(whoopsId.toString()))
+                    .andExpect(jsonPath("$.senderName").value(senderName))
+                            .andExpect(jsonPath("$.sourcePlatform").value(sourcePlatform.name()));
+
+
+    verify(createWhoopUseCase).create(userId,senderName,sourcePlatform,message);
 
 }
 

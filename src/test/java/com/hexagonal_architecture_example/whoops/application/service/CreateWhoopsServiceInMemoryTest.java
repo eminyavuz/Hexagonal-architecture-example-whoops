@@ -1,6 +1,8 @@
 package com.hexagonal_architecture_example.whoops.application.service;
 
+import com.hexagonal_architecture_example.whoops.adapter.out.messaging.InMemoryWhoopsEventPublisher;
 import com.hexagonal_architecture_example.whoops.adapter.out.persistence.InMemoryWhoopsRepository;
+import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
 import com.hexagonal_architecture_example.whoops.domain.Whoops;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +11,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 
 public class CreateWhoopsServiceInMemoryTest {
@@ -16,12 +19,14 @@ public class CreateWhoopsServiceInMemoryTest {
     void shouldCreateWhoopsUsingInMemoryAdapters()
     {
         InMemoryWhoopsRepository repository =  new InMemoryWhoopsRepository();
-        InMemoryWhoopsEventPublisher publisher= new InMemoryWhoopsEventPublisher();
+        InMemoryWhoopsEventPublisher publisher= mock(InMemoryWhoopsEventPublisher.class);
 
        CreateWhoopsService service= new CreateWhoopsService(repository,publisher);
     UUID userId= UUID.randomUUID();
     String message="There is a new Whoops Notification";
-    Whoops result=service.create(userId,message);
+    String senderName= "Angela Wants Her Cat Back!";
+        SocialMediaPlatform sourcePlatform= SocialMediaPlatform.X;
+    Whoops result=service.create(userId,senderName,sourcePlatform,message);
 
         Optional<Whoops> savedWhoops=repository.findById(result.getId());
 

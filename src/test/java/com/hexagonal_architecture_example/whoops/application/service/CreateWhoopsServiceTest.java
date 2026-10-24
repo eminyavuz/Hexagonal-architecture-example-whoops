@@ -2,6 +2,7 @@ package com.hexagonal_architecture_example.whoops.application.service;
 
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsEventPublisher;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
+import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
 import com.hexagonal_architecture_example.whoops.domain.Whoops;
 import com.hexagonal_architecture_example.whoops.domain.WhoopsCreatedEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +33,10 @@ public class CreateWhoopsServiceTest {
     {
         UUID userid= UUID.randomUUID();
         String message= "You have new  Whoops!";
+        String senderName="Michael Scott";
+        SocialMediaPlatform sourcePlatform= SocialMediaPlatform.FACEBOOK;
 
-        Whoops result= service.create(userid,message);
+        Whoops result= service.create(userid,senderName,sourcePlatform,message);
 
         assertNotNull(result);
         assertNotNull(result.getId());

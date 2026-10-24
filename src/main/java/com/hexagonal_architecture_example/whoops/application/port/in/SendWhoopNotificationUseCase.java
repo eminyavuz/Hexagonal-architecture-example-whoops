@@ -1,4 +1,9 @@
 package com.hexagonal_architecture_example.whoops.application.port.in;
 
-public class SendWhoopNotificationUseCase {
+import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+
+import java.util.UUID;
+
+public interface SendWhoopNotificationUseCase {
+    void send(UUID id, String senderName, SocialMediaPlatform sourcePlatfrom, String message);
 }

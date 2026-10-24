@@ -1,9 +1,8 @@
 package com.hexagonal_architecture_example.whoops.adapter.out.persistence;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -12,10 +11,15 @@ import java.util.UUID;
 public class WhoopsJpaEntity {
 
     @Id
-            @Column(name = "id",nullable = false)
+    @Column(name = "id",nullable = false)
     UUID id;
     @Column(name = "user_id",nullable = false)
     UUID userId;
+    @Column(name = "sender_name",nullable = false)
+    String senderName;
+    @Column(name = "source_platform",nullable = false)
+    @Enumerated(EnumType.STRING)
+    SocialMediaPlatform sourcePlatform;
     @Column(name = "message",nullable = false)
     String message;
     @Column(name="created_at",nullable = false)
@@ -24,12 +28,14 @@ protected WhoopsJpaEntity()
 {
 
 }
-public WhoopsJpaEntity(UUID id, UUID userId,String message,Instant createdAt)
+public WhoopsJpaEntity(UUID id, UUID userId,String senderName,SocialMediaPlatform sourcePlatform,String message,Instant createdAt)
 {
     this.id=id;
     this.userId= userId;
     this.message=message;
     this.createdAt=createdAt;
+    this.senderName=senderName;
+    this.sourcePlatform=sourcePlatform;
 }
 
     public UUID getId() {
@@ -47,4 +53,13 @@ public WhoopsJpaEntity(UUID id, UUID userId,String message,Instant createdAt)
     public Instant getCreatedAt() {
         return createdAt;
     }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public SocialMediaPlatform getSourcePlatform() {
+        return sourcePlatform;
+    }
 }
+

@@ -13,7 +13,7 @@ public class  JpaWhoopsRepositoryAdapter implements WhoopsRepository {
 
     @Override
     public Whoops save(Whoops whoops) {
-        WhoopsJpaEntity entity= new WhoopsJpaEntity(whoops.getId(),whoops.getUserId(),whoops.getMessage(),whoops.getCreatedAt());
+        WhoopsJpaEntity entity= new WhoopsJpaEntity(whoops.getId(),whoops.getUserId(),whoops.getSenderName(),whoops.getSourcePlatform(),whoops.getMessage(),whoops.getCreatedAt());
     repository.save(entity);
     return whoops;
     }

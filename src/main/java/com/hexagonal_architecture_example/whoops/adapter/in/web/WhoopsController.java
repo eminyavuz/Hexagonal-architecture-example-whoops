@@ -19,7 +19,7 @@ public class WhoopsController {
 
     public Whoops createWhoops(@RequestBody CreateWhoopsRequest req)
    {
-return createUseCase.create(req.userId(),req.message());
+return createUseCase.create(req.userId(), req.senderName(),req.sourcePlatform(),req.message());
    }
 
 
