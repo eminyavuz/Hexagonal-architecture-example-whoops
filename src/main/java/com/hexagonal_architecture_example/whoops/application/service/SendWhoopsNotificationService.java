@@ -9,26 +9,27 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class SendWhoopsNotificationService implements SendWhoopNotificationUseCase , ConnectedPlatformProvider {
+public class SendWhoopsNotificationService implements SendWhoopNotificationUseCase  {
 
     private final List<NotificationSender> notificationSenders;
-    public  SendWhoopsNotificationService(List<NotificationSender> notificationSenders)
+    private final ConnectedPlatformProvider connectedPlatformProvider;
+    public  SendWhoopsNotificationService(List<NotificationSender> notificationSenders,ConnectedPlatformProvider connectedPlatformProvider)
     {
   this.notificationSenders= notificationSenders;
+  this.connectedPlatformProvider= connectedPlatformProvider;
+
 
     }
     @Override
     public void send(UUID userId, String senderName, SocialMediaPlatform sourcePlatform, String message) {
+        Set<SocialMediaPlatform> connectedPlatforms=connectedPlatformProvider.getConnectedPlatforms(userId);
+
         for (NotificationSender sender:notificationSenders) {
-            if(sender.platform()!=sourcePlatform)
+            if(sender.platform()!=sourcePlatform && connectedPlatforms.contains(sender.platform()))
             {
                 sender.send(userId,senderName,sourcePlatform,message);
             }
         }
     }
 
-    @Override
-    public Set<SocialMediaPlatform> getConnectedPlatforms(UUID userId) {
-
-    }
 }

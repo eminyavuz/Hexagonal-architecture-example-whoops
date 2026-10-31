@@ -14,13 +14,27 @@ public class UserConnectedPlatformEntity {
     UUID id;
    @Column(name="user_id",nullable = false)
     UUID userId;
-   @Column(name="connected_platforms")
+   @Column(name="platform")
      @Enumerated(EnumType.STRING)
     SocialMediaPlatform platform;
 
 protected UserConnectedPlatformEntity(){}
     public UserConnectedPlatformEntity(UUID id, UUID userId,SocialMediaPlatform platform)
     {
-       UserConnectedPlatformEntity connection=
+        this.id=id;
+        this.userId=userId;
+        this.platform=platform;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public SocialMediaPlatform getPlatform() {
+        return platform;
     }
 }
