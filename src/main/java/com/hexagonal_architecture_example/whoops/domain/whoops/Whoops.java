@@ -1,4 +1,6 @@
-package com.hexagonal_architecture_example.whoops.domain;
+package com.hexagonal_architecture_example.whoops.domain.whoops;
+
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -7,7 +9,7 @@ public class Whoops {
     private final UUID id;
     private final UUID userId;
     private  final  String  senderName;
-    private final  SocialMediaPlatform sourcePlatform;
+    private final SocialMediaPlatform sourcePlatform;
     private final String message;
     private final Instant createdAt;
     private static final int MAX_MESSAGE_LENGTH = 200;

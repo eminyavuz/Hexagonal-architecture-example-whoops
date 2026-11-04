@@ -1,9 +1,8 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.messaging;
 
-import com.hexagonal_architecture_example.whoops.adapter.in.messaging.RabbitMqWhoopsCreatedListener;
 import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNotificationUseCase;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
-import com.hexagonal_architecture_example.whoops.domain.WhoopsCreatedEvent;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.whoops.WhoopsCreatedEvent;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;

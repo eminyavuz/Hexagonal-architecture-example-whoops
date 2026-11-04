@@ -1,4 +1,4 @@
-package com.hexagonal_architecture_example.whoops.domain;
+package com.hexagonal_architecture_example.whoops.domain.platform;
 
 public enum SocialMediaPlatform {
     FACEBOOK,

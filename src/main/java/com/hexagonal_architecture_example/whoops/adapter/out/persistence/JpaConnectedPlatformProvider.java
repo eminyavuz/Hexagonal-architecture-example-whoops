@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.out.persistence;
 
 import com.hexagonal_architecture_example.whoops.application.port.out.ConnectedPlatformProvider;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 
 import java.util.Set;
 import java.util.UUID;

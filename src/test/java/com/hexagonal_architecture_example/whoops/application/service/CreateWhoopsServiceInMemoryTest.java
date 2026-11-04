@@ -2,8 +2,8 @@ package com.hexagonal_architecture_example.whoops.application.service;
 
 import com.hexagonal_architecture_example.whoops.adapter.out.messaging.InMemoryWhoopsEventPublisher;
 import com.hexagonal_architecture_example.whoops.adapter.out.persistence.InMemoryWhoopsRepository;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
-import com.hexagonal_architecture_example.whoops.domain.Whoops;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

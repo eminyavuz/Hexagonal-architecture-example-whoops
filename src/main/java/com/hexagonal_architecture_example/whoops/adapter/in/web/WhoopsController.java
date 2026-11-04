@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
-import com.hexagonal_architecture_example.whoops.domain.Whoops;
+import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

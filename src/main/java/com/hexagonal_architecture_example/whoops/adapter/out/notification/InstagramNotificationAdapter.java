@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.out.notification;
 
 import com.hexagonal_architecture_example.whoops.application.port.out.NotificationSender;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 import java.util.UUID;
 
 public class InstagramNotificationAdapter implements NotificationSender {

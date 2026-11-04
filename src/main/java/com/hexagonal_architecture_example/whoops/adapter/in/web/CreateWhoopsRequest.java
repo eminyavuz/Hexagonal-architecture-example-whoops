@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
 
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 
 import java.util.UUID;
 

@@ -1,4 +1,6 @@
-package com.hexagonal_architecture_example.whoops.domain;
+package com.hexagonal_architecture_example.whoops.domain.whoops;
+
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 
 import java.time.Instant;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.out.persistence;
 
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
-import com.hexagonal_architecture_example.whoops.domain.Whoops;
+import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 
 public class  JpaWhoopsRepositoryAdapter implements WhoopsRepository {
     private final  SpringDataWhoopsRepository repository;

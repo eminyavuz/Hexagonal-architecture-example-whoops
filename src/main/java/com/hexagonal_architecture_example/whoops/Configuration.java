@@ -3,16 +3,10 @@ package com.hexagonal_architecture_example.whoops;
 import com.hexagonal_architecture_example.whoops.adapter.in.messaging.RabbitMqWhoopsCreatedListener;
 import com.hexagonal_architecture_example.whoops.adapter.out.messaging.RabbitMqEventPublisher;
 import com.hexagonal_architecture_example.whoops.adapter.out.notification.*;
-import com.hexagonal_architecture_example.whoops.adapter.out.persistence.JpaConnectedPlatformProvider;
-import com.hexagonal_architecture_example.whoops.adapter.out.persistence.JpaWhoopsRepositoryAdapter;
-import com.hexagonal_architecture_example.whoops.adapter.out.persistence.SpringDataConnectedPlatformRepository;
-import com.hexagonal_architecture_example.whoops.adapter.out.persistence.SpringDataWhoopsRepository;
+import com.hexagonal_architecture_example.whoops.adapter.out.persistence.*;
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNotificationUseCase;
-import com.hexagonal_architecture_example.whoops.application.port.out.ConnectedPlatformProvider;
-import com.hexagonal_architecture_example.whoops.application.port.out.NotificationSender;
-import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsEventPublisher;
-import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
+import com.hexagonal_architecture_example.whoops.application.port.out.*;
 import com.hexagonal_architecture_example.whoops.application.service.CreateWhoopsService;
 import com.hexagonal_architecture_example.whoops.application.service.SendWhoopsNotificationService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -31,6 +25,16 @@ public class Configuration {
     @Bean
     public WhoopsRepository whoopsRepository(SpringDataWhoopsRepository repository) {
         return new JpaWhoopsRepositoryAdapter(repository);
+    }
+    @Bean
+    public UserRepository  userRepository(SpringDataUserRepository repository)
+    {
+        return new JpaUserRepositoryAdapter(repository);
+    }
+    @Bean
+    public JpaUserRepositoryAdapter jpaUserRepositoryAdapter(SpringDataUserRepository repository)
+    {
+        return new JpaUserRepositoryAdapter(repository);
     }
 
     @Bean

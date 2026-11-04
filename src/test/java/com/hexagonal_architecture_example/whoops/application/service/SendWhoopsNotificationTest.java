@@ -1,7 +1,8 @@
 package com.hexagonal_architecture_example.whoops.application.service;
 
+import com.hexagonal_architecture_example.whoops.application.port.out.ConnectedPlatformProvider;
 import com.hexagonal_architecture_example.whoops.application.port.out.NotificationSender;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,12 +19,13 @@ public class SendWhoopsNotificationTest {
         when(facebookSender.platform()).thenReturn(SocialMediaPlatform.FACEBOOK);
         when(instagramSender.platform()).thenReturn(SocialMediaPlatform.INSTAGRAM);
         when(whatsappSender.platform()).thenReturn(SocialMediaPlatform.WHATSAPP);
+        ConnectedPlatformProvider provider=mock(ConnectedPlatformProvider.class);
 
         SendWhoopsNotificationService service= new SendWhoopsNotificationService(List.
                 of(
                         facebookSender,
                         instagramSender,
-                        whatsappSender));
+                        whatsappSender), provider);
 
         UUID userId= UUID.randomUUID();
         String message= "Ryan says Hello!";

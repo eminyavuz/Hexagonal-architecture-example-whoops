@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.out.messaging;
 
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsEventPublisher;
-import com.hexagonal_architecture_example.whoops.domain.WhoopsCreatedEvent;
+import com.hexagonal_architecture_example.whoops.domain.whoops.WhoopsCreatedEvent;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 public class RabbitMqEventPublisher implements WhoopsEventPublisher {

@@ -3,7 +3,7 @@ package com.hexagonal_architecture_example.whoops.application.service;
 import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNotificationUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.out.ConnectedPlatformProvider;
 import com.hexagonal_architecture_example.whoops.application.port.out.NotificationSender;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
 
 import java.util.List;
 import java.util.Set;

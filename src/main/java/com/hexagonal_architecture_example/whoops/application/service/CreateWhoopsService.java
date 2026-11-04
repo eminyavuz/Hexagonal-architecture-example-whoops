@@ -3,11 +3,10 @@ package com.hexagonal_architecture_example.whoops.application.service;
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsEventPublisher;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
-import com.hexagonal_architecture_example.whoops.domain.Whoops;
-import com.hexagonal_architecture_example.whoops.domain.WhoopsCreatedEvent;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
+import com.hexagonal_architecture_example.whoops.domain.whoops.WhoopsCreatedEvent;
 
-import java.util.SortedSet;
 import java.util.UUID;
 
 public class CreateWhoopsService implements CreateWhoopUseCase {

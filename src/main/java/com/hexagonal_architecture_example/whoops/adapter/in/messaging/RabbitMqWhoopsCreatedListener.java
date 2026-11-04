@@ -2,7 +2,7 @@ package com.hexagonal_architecture_example.whoops.adapter.in.messaging;
 
 import com.hexagonal_architecture_example.whoops.adapter.out.messaging.RabbitMqConfiguration;
 import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNotificationUseCase;
-import com.hexagonal_architecture_example.whoops.domain.WhoopsCreatedEvent;
+import com.hexagonal_architecture_example.whoops.domain.whoops.WhoopsCreatedEvent;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 public class RabbitMqWhoopsCreatedListener {

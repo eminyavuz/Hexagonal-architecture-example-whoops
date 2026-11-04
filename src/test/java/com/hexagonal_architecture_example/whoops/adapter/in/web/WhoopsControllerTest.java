@@ -1,8 +1,8 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
-import com.hexagonal_architecture_example.whoops.domain.SocialMediaPlatform;
-import com.hexagonal_architecture_example.whoops.domain.Whoops;
+import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;

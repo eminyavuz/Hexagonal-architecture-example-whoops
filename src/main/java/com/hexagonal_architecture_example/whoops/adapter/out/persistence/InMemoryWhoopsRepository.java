@@ -1,7 +1,7 @@
 package com.hexagonal_architecture_example.whoops.adapter.out.persistence;
 
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
-import com.hexagonal_architecture_example.whoops.domain.Whoops;
+import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 
 import java.util.HashMap;
 import java.util.Map;
