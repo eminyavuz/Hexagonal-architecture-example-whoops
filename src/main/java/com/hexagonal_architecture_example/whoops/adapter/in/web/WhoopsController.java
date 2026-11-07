@@ -1,5 +1,6 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
+import com.hexagonal_architecture_example.whoops.adapter.in.web.dto.CreateWhoopsRequest;
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
 import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 import org.springframework.web.bind.annotation.PostMapping;

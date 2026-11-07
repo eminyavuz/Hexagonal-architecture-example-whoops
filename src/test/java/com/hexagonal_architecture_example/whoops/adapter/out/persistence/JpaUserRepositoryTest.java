@@ -12,6 +12,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -48,4 +51,39 @@ class JpaUserRepositoryTest {
        assertNotNull(user);
        assertEquals(user.getId(),savedUser.getId());
     }
+    @Test
+    void shouldFindUserById()
+    {
+        User user= User.create("Jim");
+       User savedUser=userRepository.save(user);
+
+        Optional<User> found=userRepository.findById(savedUser.getId());
+
+        assertTrue(found.isPresent());
+        assertEquals(savedUser.getId(),found.get().getId());
+    }
+@Test
+    void shouldReturnEmptyWhenUserNotFound()
+{
+    UUID id= UUID.randomUUID();
+    Optional<User>user= userRepository.findById(id);
+
+    assertTrue(user.isEmpty());
+}
+@Test
+    void shouldReturnTrueWhenUsernameExists()
+{
+    User user= User.create("Jim");
+    userRepository.save(user);
+  boolean found= userRepository.existByUsername("Jim");
+  assertTrue(found);
+}
+
+@Test
+    void shouldReturnFalseWhenUsernameDoesNotExist()
+{
+    boolean found= userRepository.existByUsername("Dwight");
+    assertFalse(found);
+}
+
 }

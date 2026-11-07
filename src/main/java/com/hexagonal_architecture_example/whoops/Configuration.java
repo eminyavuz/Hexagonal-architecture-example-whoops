@@ -4,9 +4,11 @@ import com.hexagonal_architecture_example.whoops.adapter.in.messaging.RabbitMqWh
 import com.hexagonal_architecture_example.whoops.adapter.out.messaging.RabbitMqEventPublisher;
 import com.hexagonal_architecture_example.whoops.adapter.out.notification.*;
 import com.hexagonal_architecture_example.whoops.adapter.out.persistence.*;
+import com.hexagonal_architecture_example.whoops.application.port.in.CreateUserUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNotificationUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.out.*;
+import com.hexagonal_architecture_example.whoops.application.service.CreateUserService;
 import com.hexagonal_architecture_example.whoops.application.service.CreateWhoopsService;
 import com.hexagonal_architecture_example.whoops.application.service.SendWhoopsNotificationService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -31,11 +33,6 @@ public class Configuration {
     {
         return new JpaUserRepositoryAdapter(repository);
     }
-    @Bean
-    public JpaUserRepositoryAdapter jpaUserRepositoryAdapter(SpringDataUserRepository repository)
-    {
-        return new JpaUserRepositoryAdapter(repository);
-    }
 
     @Bean
     public CreateWhoopUseCase createWhoopUseCase(
@@ -43,6 +40,11 @@ public class Configuration {
             WhoopsEventPublisher publisher
     ) {
         return new CreateWhoopsService(repository, publisher);
+    }
+    @Bean
+    public CreateUserUseCase createUserUseCase(UserRepository repository)
+    {
+        return new CreateUserService(repository);
     }
     @Bean
     public SendWhoopNotificationUseCase sendWhoopNotificationUseCase (List<NotificationSender> senders,ConnectedPlatformProvider connectedPlatformProvider)
