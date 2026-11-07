@@ -6,16 +6,25 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
- @Table(name = "user_connected_platforms")
+@Table(
+        name = "user_connected_platforms",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"user_id", "platform"}
+                )
+        }
+)
 public class UserConnectedPlatformEntity {
-   @Id
-    @Column(name = "id")
-    UUID id;
-   @Column(name="user_id",nullable = false)
-    UUID userId;
-   @Column(name="platform")
-     @Enumerated(EnumType.STRING)
-    SocialMediaPlatform platform;
+    @Id
+    @Column(name = "id", nullable = false, updatable = false)
+    private UUID id;
+
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "platform", nullable = false)
+    private SocialMediaPlatform platform;
 
 protected UserConnectedPlatformEntity(){}
     public UserConnectedPlatformEntity(UUID id, UUID userId,SocialMediaPlatform platform)

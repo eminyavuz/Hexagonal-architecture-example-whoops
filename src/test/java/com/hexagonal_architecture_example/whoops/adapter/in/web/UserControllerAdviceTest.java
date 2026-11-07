@@ -1,6 +1,8 @@
 package com.hexagonal_architecture_example.whoops.adapter.in.web;
 
+import com.hexagonal_architecture_example.whoops.application.port.in.ConnectedPlatformUseCase;
 import com.hexagonal_architecture_example.whoops.application.port.in.CreateUserUseCase;
+import com.hexagonal_architecture_example.whoops.application.port.in.GetConnectedPlatformsUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -9,18 +11,23 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserControllerAdviceTest {
 
     private MockMvc mockMvc;
     private CreateUserUseCase useCase;
+    private ConnectedPlatformUseCase platformUseCase;
+    private GetConnectedPlatformsUseCase getConnectedPlatformsUseCase;
+
 
     @BeforeEach
     void setUp() {
         useCase = mock(CreateUserUseCase.class);
+        platformUseCase = mock(ConnectedPlatformUseCase.class);
+        UserController controller = new UserController(useCase, platformUseCase,getConnectedPlatformsUseCase);
 
-        UserController controller = new UserController(useCase);
         UserControllerAdvice advice = new UserControllerAdvice();
 
         mockMvc = MockMvcBuilders

@@ -4,13 +4,9 @@ import com.hexagonal_architecture_example.whoops.adapter.in.messaging.RabbitMqWh
 import com.hexagonal_architecture_example.whoops.adapter.out.messaging.RabbitMqEventPublisher;
 import com.hexagonal_architecture_example.whoops.adapter.out.notification.*;
 import com.hexagonal_architecture_example.whoops.adapter.out.persistence.*;
-import com.hexagonal_architecture_example.whoops.application.port.in.CreateUserUseCase;
-import com.hexagonal_architecture_example.whoops.application.port.in.CreateWhoopUseCase;
-import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNotificationUseCase;
+import com.hexagonal_architecture_example.whoops.application.port.in.*;
 import com.hexagonal_architecture_example.whoops.application.port.out.*;
-import com.hexagonal_architecture_example.whoops.application.service.CreateUserService;
-import com.hexagonal_architecture_example.whoops.application.service.CreateWhoopsService;
-import com.hexagonal_architecture_example.whoops.application.service.SendWhoopsNotificationService;
+import com.hexagonal_architecture_example.whoops.application.service.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 
@@ -23,6 +19,11 @@ public class Configuration {
     public WhoopsEventPublisher whoopsEventPublisher(RabbitTemplate rabbitTemplate) {
         return new RabbitMqEventPublisher(rabbitTemplate);
     }
+    @Bean
+    public ConnectedPlatformUseCase connectedPlatformUseCase(UserRepository userRepository,ConnectedPlatformRepository platformRepository)
+    {
+        return new ConnectedPlatformService(userRepository,platformRepository);
+    }
 
     @Bean
     public WhoopsRepository whoopsRepository(SpringDataWhoopsRepository repository) {
@@ -33,7 +34,16 @@ public class Configuration {
     {
         return new JpaUserRepositoryAdapter(repository);
     }
-
+    @Bean
+    public GetConnectedPlatformsUseCase getConnectedPlatformsUseCase(UserRepository userRepository,ConnectedPlatformProvider platformProvider)
+    {
+        return new GetConnectedPlatformsService(userRepository,platformProvider);
+    }
+@Bean
+public ConnectedPlatformRepository connectedPlatformRepository(SpringDataConnectedPlatformRepository repository)
+{
+    return new JpaConnectedPlatformRepositoryAdapter(repository);
+}
     @Bean
     public CreateWhoopUseCase createWhoopUseCase(
             WhoopsRepository repository,
