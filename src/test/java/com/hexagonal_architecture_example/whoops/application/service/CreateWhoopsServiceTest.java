@@ -1,14 +1,17 @@
 package com.hexagonal_architecture_example.whoops.application.service;
 
+import com.hexagonal_architecture_example.whoops.application.port.out.UserRepository;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsEventPublisher;
 import com.hexagonal_architecture_example.whoops.application.port.out.WhoopsRepository;
 import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
+import com.hexagonal_architecture_example.whoops.domain.user.User;
 import com.hexagonal_architecture_example.whoops.domain.whoops.Whoops;
 import com.hexagonal_architecture_example.whoops.domain.whoops.WhoopsCreatedEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,13 +22,15 @@ public class CreateWhoopsServiceTest {
     private WhoopsRepository whoopsRepository;
     private WhoopsEventPublisher publisher;
     private  CreateWhoopsService service;
+    private UserRepository userRepository;
     @BeforeEach
     void setup()
     {
         whoopsRepository=mock(WhoopsRepository.class);
+        userRepository= mock(UserRepository.class);
         publisher=mock(WhoopsEventPublisher.class);
 
-        service= new CreateWhoopsService(whoopsRepository, publisher);
+        service= new CreateWhoopsService(whoopsRepository, publisher,userRepository);
     }
 
     @Test
@@ -36,6 +41,8 @@ public class CreateWhoopsServiceTest {
         String senderName="Michael Scott";
         SocialMediaPlatform sourcePlatform= SocialMediaPlatform.FACEBOOK;
 
+        User user= User.create("Dwight");
+        when(userRepository.findById(userid)).thenReturn(Optional.of(user));
         Whoops result= service.create(userid,senderName,sourcePlatform,message);
 
         assertNotNull(result);
@@ -59,6 +66,22 @@ public class CreateWhoopsServiceTest {
         assertEquals(result.getMessage(),event.message());
         assertEquals(result.getCreatedAt(),event.occurredAt());
 
+    }
 
+    @Test
+    void  shouldThrowErrorWhenUserDoesNotExist()
+    {
+        UUID userId= UUID.randomUUID();
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(
+                IllegalArgumentException.class,()->service.create(
+                        userId,
+                        "Michael Scoot",
+                        SocialMediaPlatform.FACEBOOK,
+                        "Whazaaaaaap"
+                )
+        );
+        verifyNoInteractions(whoopsRepository,publisher);
     }
 }

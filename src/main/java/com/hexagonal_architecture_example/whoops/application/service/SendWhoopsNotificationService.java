@@ -4,15 +4,19 @@ import com.hexagonal_architecture_example.whoops.application.port.in.SendWhoopNo
 import com.hexagonal_architecture_example.whoops.application.port.out.ConnectedPlatformProvider;
 import com.hexagonal_architecture_example.whoops.application.port.out.NotificationSender;
 import com.hexagonal_architecture_example.whoops.domain.platform.SocialMediaPlatform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+
 public class SendWhoopsNotificationService implements SendWhoopNotificationUseCase  {
 
     private final List<NotificationSender> notificationSenders;
     private final ConnectedPlatformProvider connectedPlatformProvider;
+    private  static  final Logger log= LoggerFactory.getLogger(SendWhoopsNotificationService.class);
     public  SendWhoopsNotificationService(List<NotificationSender> notificationSenders,ConnectedPlatformProvider connectedPlatformProvider)
     {
   this.notificationSenders= notificationSenders;
@@ -25,10 +29,18 @@ public class SendWhoopsNotificationService implements SendWhoopNotificationUseCa
         Set<SocialMediaPlatform> connectedPlatforms=connectedPlatformProvider.getConnectedPlatforms(userId);
 
         for (NotificationSender sender:notificationSenders) {
-            if(sender.platform()!=sourcePlatform && connectedPlatforms.contains(sender.platform()))
-            {
-                sender.send(userId,senderName,sourcePlatform,message);
-            }
+            if(sender.platform()==sourcePlatform || !connectedPlatforms.contains(sender.platform()))
+            continue;
+             try {
+                 sender.send(userId,senderName,sourcePlatform,message);
+             }
+             catch (Exception exception)
+             {
+                 log.error("Notification failed. User: {}, Target Platform {}",
+                         userId,
+                         sender.platform(),
+                         exception);
+             }
         }
     }
 

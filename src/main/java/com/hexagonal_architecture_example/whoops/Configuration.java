@@ -47,9 +47,10 @@ public ConnectedPlatformRepository connectedPlatformRepository(SpringDataConnect
     @Bean
     public CreateWhoopUseCase createWhoopUseCase(
             WhoopsRepository repository,
-            WhoopsEventPublisher publisher
+            WhoopsEventPublisher publisher,
+            UserRepository userRepository
     ) {
-        return new CreateWhoopsService(repository, publisher);
+        return new CreateWhoopsService(repository, publisher, userRepository);
     }
     @Bean
     public CreateUserUseCase createUserUseCase(UserRepository repository)
